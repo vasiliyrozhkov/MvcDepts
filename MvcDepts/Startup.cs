@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using MvcDepts.Models;
+using MvcDepts.Dapper;
 
 namespace MvcDepts
 {
@@ -34,6 +35,7 @@ namespace MvcDepts
             });
 
             string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=MvcDeptsContext;Integrated Security=True";
+            services.AddTransient<MvcDepts.Dapper.ISession, Session>(provider => new Session(connectionString));
             services.AddTransient<ISelectRequest, SelectRequest>(provider => new SelectRequest(connectionString));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 

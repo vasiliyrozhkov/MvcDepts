@@ -5,22 +5,30 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MvcDepts.Models;
+using MvcDepts.Domain.Queries.Handler;
+using MvcDepts.Domain.Queries.Query;
+using MvcDepts.Dapper;
 
 namespace MvcDepts.Controllers
 {
     public class SelectRequestController : Controller
     {
         ISelectRequest _request;
+        ISession _session;
 
-        public SelectRequestController(ISelectRequest request)
+        public SelectRequestController(ISelectRequest request, ISession session)
         {
             _request = request;
+            _session = session;
+
         }
 
         // GET: SelectRequest
         public IActionResult Index()
         {
-            return View(_request.GetDepartments("getDept"));
+            var query = new GetDepartmentsQuery();
+            var handler = DepartmentQueryHandlerFactory.Build(query);
+            return View(handler.Execute(_session));
         }
 
         // GET: SelectRequest/Employees
