@@ -13,12 +13,10 @@ namespace MvcDepts.Controllers
 {
     public class SelectRequestController : Controller
     {
-        ISelectRequest _request;
         ISession _session;
 
-        public SelectRequestController(ISelectRequest request, ISession session)
+        public SelectRequestController(ISession session)
         {
-            _request = request;
             _session = session;
 
         }
@@ -27,36 +25,32 @@ namespace MvcDepts.Controllers
         public IActionResult Index()
         {
             var query = new GetDepartmentsQuery();
-            var handler = DepartmentQueryHandlerFactory.Build(query);
+            var handler = QueryHandlerFactory.Build(query);
             return View(handler.Execute(_session));
         }
 
         // GET: SelectRequest/Employees
         public IActionResult Employees()
         {
-            return View(_request.GetEmployees());
+            var query = new GetEmployeesQuery();
+            var handler = QueryHandlerFactory.Build(query);
+            return View(handler.Execute(_session));
         }
 
         // GET: SelectRequest/EmployeesFromDepartment/5
-        public IActionResult EmployeesFromDepartment(int? id)
+        public IActionResult EmployeesFromDepartment(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            return View(_request.GetEmployeesFromDepartment(id));
+            var query = new GetEmployeesFromDeptQuery(id);
+            var handler = QueryHandlerFactory.Build(query);
+            return View(handler.Execute(_session));
         }
 
         // GET: SelectRequest/EmployeeDetails/5
-        public IActionResult EmployeeDetails(int? id)
+        public IActionResult EmployeeDetails(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var employee = _request.Get(id);
+            var query = new OneEmployeeQuery(id);
+            var handler = QueryHandlerFactory.Build(query);
+            var employee = handler.Execute(_session);
 
             if (employee == null)
             {
