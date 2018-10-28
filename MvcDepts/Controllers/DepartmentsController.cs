@@ -83,8 +83,6 @@ namespace MvcDepts.Controllers
         }
 
         // POST: Departments/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("DepartmentID,DepartmentName")] Department department)
@@ -98,7 +96,9 @@ namespace MvcDepts.Controllers
             {
                 try
                 {
-                    _context.Update(department);
+                    var command = new EditDepartmentCommand(department);
+                    var handler = CommandHandlerFactory.Build(command);
+                    handler.Execute(_context);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)

@@ -6,11 +6,11 @@ using MvcDepts.Models;
 
 namespace MvcDepts.Domain.Commands.Command
 {
-    public class CreateDepartmentCommand : ICommand
+    public class EditDepartmentCommand : ICommand
     {
         public Department Department { get; private set; }
 
-        public CreateDepartmentCommand(Department department)
+        public EditDepartmentCommand(Department department)
         {
             Department = department;
         }

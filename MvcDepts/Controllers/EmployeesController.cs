@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MvcDepts.Models;
+using MvcDepts.Domain.Commands.Command;
+using MvcDepts.Domain.Commands.Handler;
 
 namespace MvcDepts.Controllers
 {
@@ -60,7 +62,9 @@ namespace MvcDepts.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(employee);
+                var command = new CreateEmployeeCommand(employee);
+                var handler = CommandHandlerFactory.Build(command);
+                handler.Execute(_context);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -101,7 +105,9 @@ namespace MvcDepts.Controllers
             {
                 try
                 {
-                    _context.Update(employee);
+                    var command = new EditEmployeeCommand(employee);
+                    var handler = CommandHandlerFactory.Build(command);
+                    handler.Execute(_context);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
