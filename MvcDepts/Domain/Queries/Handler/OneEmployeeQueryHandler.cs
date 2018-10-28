@@ -3,9 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MvcDepts.Dapper;
 using MvcDepts.Domain.Queries.Query;
 using MvcDepts.Models;
-using MvcDepts.Dapper;
+
 
 namespace MvcDepts.Domain.Queries.Handler
 {

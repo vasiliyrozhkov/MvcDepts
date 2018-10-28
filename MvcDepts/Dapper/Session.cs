@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Dapper;
+﻿using Dapper;
+using System.Collections.Generic;
 
 namespace MvcDepts.Dapper
 {

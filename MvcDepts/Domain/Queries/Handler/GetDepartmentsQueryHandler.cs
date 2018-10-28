@@ -5,14 +5,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
+using MvcDepts.Dapper;
 using MvcDepts.Domain.Queries.Query;
 using MvcDepts.Models;
-using MvcDepts.Dapper;
+
 
 namespace MvcDepts.Domain.Queries.Handler
 {
     public class GetDepartmentsQueryHandler : IQueryHandler<GetDepartmentsQuery, List<DepartmentExpanded>>
     {
+
         public List<DepartmentExpanded> Execute(ISession session)
         {
             {

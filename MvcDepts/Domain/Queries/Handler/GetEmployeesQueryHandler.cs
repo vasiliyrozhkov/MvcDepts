@@ -3,9 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MvcDepts.Models;
-using MvcDepts.Domain.Queries.Query;
 using MvcDepts.Dapper;
+using MvcDepts.Domain.Queries.Query;
+using MvcDepts.Models;
+
 
 namespace MvcDepts.Domain.Queries.Handler
 {
@@ -13,8 +14,7 @@ namespace MvcDepts.Domain.Queries.Handler
     {
         public List<Employee> Execute(ISession session)
         {
-            string sql = "SELECT * FROM Employee";
-            return session.Query<Employee>(sql).ToList();
+            return session.Query<Employee>("SELECT * FROM Employee").ToList();
         }
     }
 }

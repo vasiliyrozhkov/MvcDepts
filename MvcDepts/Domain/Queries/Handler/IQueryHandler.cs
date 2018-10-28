@@ -5,8 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
-using MvcDepts.Domain.Queries.Query;
 using MvcDepts.Dapper;
+using MvcDepts.Domain.Queries.Query;
+
 
 namespace MvcDepts.Domain.Queries.Handler
 {
